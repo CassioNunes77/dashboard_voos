@@ -1003,92 +1003,52 @@
             createPrioridadesChart();
         });
 
-        // Infraestrutura Aeroportuária
-        function createInfraestruturaChart() {
-            const ctx = document.getElementById('infraestruturaChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['PAPI', 'Esteira de Bagagem', 'Estação Meteorológica', 'VOR/NDB', 'GNSS', 'Caminhão de Bombeiro', 'Pavimento da Pista'],
-                    datasets: [{
-                        label: 'Status de Conformidade (%)',
-                        data: [100, 100, 100, 100, 100, 0, 70],
-                        backgroundColor: [
-                            colors.success, colors.success, colors.success, colors.success, 
-                            colors.success, colors.danger, colors.warning
-                        ],
-                        borderColor: [
-                            colors.success, colors.success, colors.success, colors.success, 
-                            colors.success, colors.danger, colors.warning
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.raw + '%';
-                                }
-                            }
+       // Infraestrutura Aeroportuária
+function createInfraestruturaChart() {
+    const ctx = document.getElementById('infraestruturaChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['PAPI', 'Esteira de Bagagem', 'Estação Meteorológica', 'GNSS', 'Caminhão de Bombeiro', 'Pavimento da Pista'],
+            datasets: [{
+                label: 'Status de Conformidade (%)',
+                data: [100, 100, 100, 100, 0, 70],
+                backgroundColor: [
+                    colors.success, colors.success, colors.success, 
+                    colors.success, colors.danger, colors.warning
+                ],
+                borderColor: [
+                    colors.success, colors.success, colors.success, 
+                    colors.success, colors.danger, colors.warning
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
                         }
                     }
                 }
-            });
-        }
-
-        function createRequisitosChart() {
-            const ctx = document.getElementById('requisitosChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Pista', 'Navegação', 'Terminais', 'Segurança', 'Meteorologia', 'Comunicação'],
-                    datasets: [{
-                        label: 'Situação Atual',
-                        data: [80, 90, 75, 60, 95, 85],
-                        backgroundColor: 'rgba(0, 102, 204, 0.2)',
-                        borderColor: colors.primary,
-                        pointBackgroundColor: colors.primary,
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: colors.primary
-                    }, {
-                        label: 'Requisitos Mínimos',
-                        data: [70, 80, 70, 90, 80, 75],
-                        backgroundColor: 'rgba(255, 102, 0, 0.2)',
-                        borderColor: colors.accent,
-                        pointBackgroundColor: colors.accent,
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: colors.accent
-                    }]
-                },
-                options: {
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 100
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw + '%';
                         }
                     }
                 }
-            });
+            }
         }
+    });
+}
 
         // Análise Histórica e Tendências
         function createHistoricoPassageirosChart() {
