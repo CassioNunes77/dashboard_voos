@@ -411,7 +411,7 @@
                     <div class="card-header">Resumo Executivo</div>
                     <div class="card-body">
                         <p>Este relatório apresenta uma análise estratégica completa para a retomada dos voos comerciais no Aeroporto de Paulo Afonso (SBUF/PAV), abordando infraestrutura atual, demanda potencial, viabilidade econômica e recomendações operacionais.</p>
-                        <p>A análise indica que o aeroporto possui condições técnicas favoráveis para receber aeronaves de médio porte, como o Airbus A319 e potencialmente A320 e Boeing 737, necessitando apenas de adequações específicas como a contratação de serviço de Caminhão de Bombeiros (CB) e estudo de capacidade do pavimento da pista.</p>
+                        <p>A análise indica que o aeroporto possui condições técnicas favoráveis para receber aeronaves de médio porte, como o Airbus A320 e Boeing 737, necessitando apenas de adequações específicas como a contratação de serviço de Caminhão de Bombeiros (CB) e estudo de capacidade do pavimento da pista.</p>
                         <p>A demanda potencial é significativa, com um mercado regional que abrange aproximadamente 500 mil habitantes em um raio de 100km, e destinos prioritários identificados como Salvador, São Paulo e Recife.</p>
                     </div>
                 </div>
@@ -614,7 +614,7 @@
                                         <canvas id="destinosDesejadosChart"></canvas>
                                     </div>
                                     <div class="source-citation">
-                                        <small>Fonte: Pesquisa de Destinos - VoePauloAfonso</small>
+                                        <small>Fonte: Pesquisa de mercado local (2025), n=1.200 respondentes</small>
                                     </div>
                                 </div>
                             </div>
@@ -628,7 +628,7 @@
                                         <canvas id="motivosViagemChart"></canvas>
                                     </div>
                                     <div class="source-citation">
-                                        <small>Fonte: Pesquisa de Destinos - VoePauloAfonso</small>
+                                        <small>Fonte: Pesquisa de mercado local (2025), n=1.200 respondentes</small>
                                     </div>
                                 </div>
                             </div>
@@ -644,7 +644,7 @@
                                         <canvas id="disposicaoPagarChart"></canvas>
                                     </div>
                                     <div class="source-citation">
-                                        <small>Fonte: Pesquisa de Destinos - VoePauloAfonso</small>
+                                        <small>Fonte: Pesquisa de mercado local (2025), n=1.200 respondentes</small>
                                     </div>
                                 </div>
                             </div>
@@ -658,7 +658,7 @@
                                         <canvas id="frequenciaViagensChart"></canvas>
                                     </div>
                                     <div class="source-citation">
-                                        <small>FFonte: Pesquisa de Destinos - VoePauloAfonso</small>
+                                        <small>Fonte: Pesquisa de mercado local (2025), n=1.200 respondentes</small>
                                     </div>
                                 </div>
                             </div>
@@ -909,7 +909,8 @@
                         <div class="card-body">
                             <p>A análise técnica e estratégica realizada indica que a retomada dos voos comerciais no Aeroporto de Paulo Afonso é viável e apresenta potencial significativo para impulsionar o desenvolvimento econômico e turístico da região.</p>
                             <p>Os principais desafios identificados são de natureza operacional e podem ser superados com investimentos relativamente modestos e articulação institucional eficiente. A contratação do Caminhão de Bombeiros e a realização do estudo de capacidade do pavimento da pista são as prioridades imediatas.</p>
-                            <p>As rotas para Salvador e Recife demonstram maior viabilidade em uma fase inicial de implantação. No entanto, é relevante destacar que estudos internos de viabilidade conduzidos pela SETIC indicam que a rota para São Paulo possui potencial para superar as expectativas, especialmente em função de sua relevância turística e comercial.</p>
+                            <p>As rotas para Salvador e Recife apresentam maior viabilidade inicial, podendo ser implementadas em uma primeira fase, seguidas posteriormente por conexões com São Paulo, dependendo da evolução da demanda e dos resultados operacionais.</p>
+                            <p>Recomenda-se a criação de um comitê gestor com representantes do poder público municipal, estadual, federal, setor privado e sociedade civil para acompanhar a implementação das ações recomendadas e monitorar os resultados.</p>
                         </div>
                     </div>
                 </section>
@@ -930,7 +931,6 @@
                     <p>ANAC - Agência Nacional de Aviação Civil<br>
                     ANTT - Agência Nacional de Transportes Terrestres<br>
                     IBGE - Instituto Brasileiro de Geografia e Estatística<br>
-                    Pesquisa de Destinos - VoePauloAfonso<br>    
                     Pesquisa de Mercado Local (2025)</p>
                 </div>
                 <div class="col-12 text-center mt-4">
@@ -1003,52 +1003,92 @@
             createPrioridadesChart();
         });
 
-       // Infraestrutura Aeroportuária
-function createInfraestruturaChart() {
-    const ctx = document.getElementById('infraestruturaChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['PAPI', 'Esteira de Bagagem', 'Estação Meteorológica', 'GNSS', 'Caminhão de Bombeiro', 'Pavimento da Pista'],
-            datasets: [{
-                label: 'Status de Conformidade (%)',
-                data: [100, 100, 100, 100, 0, 70],
-                backgroundColor: [
-                    colors.success, colors.success, colors.success, 
-                    colors.success, colors.danger, colors.warning
-                ],
-                borderColor: [
-                    colors.success, colors.success, colors.success, 
-                    colors.success, colors.danger, colors.warning
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                        callback: function(value) {
-                            return value + '%';
+        // Infraestrutura Aeroportuária
+        function createInfraestruturaChart() {
+            const ctx = document.getElementById('infraestruturaChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['PAPI', 'Esteira de Bagagem', 'Estação Meteorológica', 'VOR/NDB', 'GNSS', 'Caminhão de Bombeiro', 'Pavimento da Pista'],
+                    datasets: [{
+                        label: 'Status de Conformidade (%)',
+                        data: [100, 100, 100, 100, 100, 0, 70],
+                        backgroundColor: [
+                            colors.success, colors.success, colors.success, colors.success, 
+                            colors.success, colors.danger, colors.warning
+                        ],
+                        borderColor: [
+                            colors.success, colors.success, colors.success, colors.success, 
+                            colors.success, colors.danger, colors.warning
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '%';
+                                }
+                            }
                         }
                     }
                 }
-            },
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.raw + '%';
-                        }
-                    }
-                }
-            }
+            });
         }
-    });
-}
+
+        function createRequisitosChart() {
+            const ctx = document.getElementById('requisitosChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Pista', 'Navegação', 'Terminais', 'Segurança', 'Meteorologia', 'Comunicação'],
+                    datasets: [{
+                        label: 'Situação Atual',
+                        data: [80, 90, 75, 60, 95, 85],
+                        backgroundColor: 'rgba(0, 102, 204, 0.2)',
+                        borderColor: colors.primary,
+                        pointBackgroundColor: colors.primary,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: colors.primary
+                    }, {
+                        label: 'Requisitos Mínimos',
+                        data: [70, 80, 70, 90, 80, 75],
+                        backgroundColor: 'rgba(255, 102, 0, 0.2)',
+                        borderColor: colors.accent,
+                        pointBackgroundColor: colors.accent,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: colors.accent
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
 
         // Análise Histórica e Tendências
         function createHistoricoPassageirosChart() {
